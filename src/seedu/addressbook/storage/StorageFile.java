@@ -50,6 +50,12 @@ public class StorageFile {
             super(message);
         }
     }
+    
+    public static class StorageFileNotFoundException extends Exception {
+    	public StorageFileNotFoundException(String message){
+    		super(message);
+    	}
+    }
 
     private final JAXBContext jaxbContext;
 
@@ -91,8 +97,13 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors converting and/or storing data to file.
      */
-    public void save(AddressBook addressBook) throws StorageOperationException {
+    public void save(AddressBook addressBook) throws StorageOperationException, StorageFileNotFoundException {
 
+    	// check first whether the file exits or not
+    	if (!path.toFile().exists()) {
+    		throw new StorageFileNotFoundException("Addressbook storage file missing.");
+    	}
+    	
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
@@ -116,7 +127,7 @@ public class StorageFile {
      *
      * @throws StorageOperationException if there were errors reading and/or converting data from file.
      */
-    public AddressBook load() throws StorageOperationException {
+    public AddressBook load() throws StorageOperationException, StorageFileNotFoundException {
         try (final Reader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
