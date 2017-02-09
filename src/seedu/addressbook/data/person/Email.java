@@ -56,7 +56,7 @@ public class Email implements Printable{
     }
 
     @Override
-    public String getPrintableString(){
+    public String getPrintableString(Printable... printables){
     	return EMAIL_CLASS_TITLE + toString();
     }
 

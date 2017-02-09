@@ -43,7 +43,7 @@ public class Address implements Printable{
     }
    
     @Override
-    public String getPrintableString(){
+    public String getPrintableString(Printable... printables){
     	return ADDRESS_CLASS_TITLE + toString();
     }
 

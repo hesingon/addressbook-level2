@@ -50,7 +50,7 @@ public class Phone implements Printable {
     }
     
     @Override
-    public String getPrintableString(){
+    public String getPrintableString(Printable... printables){
     	return PHONE_CLASS_TITLE + toString();
     }
 
